@@ -14,8 +14,40 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-export default function FoodCard() {
+import { useEffect, useState } from "react";
+
+export default function FoodCard({ data }: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [expirationDate, setExpirationDate] = useState(
+    data?.expiration_date || ""
+  );
+
+  useEffect(() => {
+    if (data.expiration_date) {
+      setExpirationDate(data.expiration_date);
+    }
+  }, [data]);
+
+  const handleUpdate = async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SMART_FRIDGE_API_URL}/fridge/item`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        redirect: "follow",
+        body: JSON.stringify({
+          name: data.name,
+          expiration_date: expirationDate,
+        }),
+      }
+    );
+
+    onClose();
+  };
+
   return (
     <Flex
       borderRadius={"20px"}
@@ -44,15 +76,15 @@ export default function FoodCard() {
         direction={"column"}
       >
         <Text fontWeight={700} fontSize={"lg"}>
-          Food Name
+          {data?.name}
         </Text>
         <Text>
           In Fridge Since:
-          <br /> {"20220101"}
+          <br /> {data?.in_date}
         </Text>
         <Text>
           Expiration Date:
-          <br /> {"20231013"}
+          <br /> {data?.expiration_date}
         </Text>
       </Flex>
       <Spacer />
@@ -74,11 +106,17 @@ export default function FoodCard() {
           <ModalCloseButton />
           <ModalBody>
             <Text>Expiration Date: </Text>
-            <Input type="date" />
+            <Input
+              type="date"
+              value={expirationDate}
+              onChange={(e) => {
+                setExpirationDate(e.target.value);
+              }}
+            />
           </ModalBody>
 
           <ModalFooter>
-            <Button color="blue.800" mr={3} onClick={onClose}>
+            <Button color="blue.800" mr={3} onClick={handleUpdate}>
               Confirm
             </Button>
           </ModalFooter>

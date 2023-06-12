@@ -19,7 +19,7 @@ export default function FunctionMenu() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex padding={"5px 20px"} direction={"column"}>
-      <Flex bg="#F4EFFA" borderRadius={"20px"} margin={"0px 10px"}>
+      <Flex bg="#F4EFFA" borderRadius={"20px"}>
         <Flex padding={" 10px"} gap={4} onClick={onOpen}>
           <Center
             bg="white"
