@@ -80,7 +80,7 @@ export default function FoodCard({ data }: any) {
         </Text>
         <Text>
           In Fridge Since:
-          <br /> {data?.in_date}
+          <br /> {data?.in_fridge_since}
         </Text>
         <Text>
           Expiration Date:

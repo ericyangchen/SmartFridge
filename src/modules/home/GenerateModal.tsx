@@ -8,8 +8,12 @@ import {
   ModalFooter,
   Button,
   Flex,
+  Spinner,
+  Center,
 } from "@chakra-ui/react";
 import SelectItem from "./SelectItem";
+import { useFridge } from "../swr/useFridge";
+import { useState } from "react";
 
 export default function GenerateModal({
   isOpen,
@@ -18,16 +22,30 @@ export default function GenerateModal({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  const { data } = useFridge();
+  const [selectData, setSelectData] = useState([]);
+  console.log(selectData);
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent width={"90vw"}>
         <ModalHeader>Generate Recipe</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Flex direction={"column"} gap="6">
-            <SelectItem />
-            <SelectItem />
+            {data?.items.length ? (
+              data?.items.map((item: any, index: number) => (
+                <SelectItem
+                  key={index}
+                  data={item}
+                  selectData={setSelectData}
+                />
+              ))
+            ) : (
+              <Center>
+                <Spinner />
+              </Center>
+            )}
           </Flex>
         </ModalBody>
 
