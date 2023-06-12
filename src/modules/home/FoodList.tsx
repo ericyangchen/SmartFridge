@@ -4,7 +4,7 @@ import { useFridge } from "../swr/useFridge";
 
 export default function FoodList() {
   const { data } = useFridge();
-  console.log(data);
+
   return (
     <Flex padding={"5px 20px"} direction={"column"}>
       <Text fontSize={"xl"} fontWeight={500}>

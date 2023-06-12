@@ -1,7 +1,13 @@
 import { Button, Checkbox, Flex, Spacer, Text, Image } from "@chakra-ui/react";
 import moment from "moment";
-export default function SelectItem({ data, setSelectData }: any) {
-  console.log(data);
+import { Dispatch, SetStateAction } from "react";
+
+interface Props {
+  data: any;
+  setSelectData: Dispatch<SetStateAction<any>>;
+}
+
+export default function SelectItem({ data, setSelectData }: Props) {
   const handleCheck = () => {
     setSelectData((prev: any) => [...prev, data.name]);
   };
@@ -24,7 +30,7 @@ export default function SelectItem({ data, setSelectData }: any) {
           <Text fontWeight={500} fontSize={"sm"} color={"gray.400"}>
             {data?.expiration_date ? (
               <Text>
-                Expired in {moment(data?.expiration_date).fromNow(true)}
+                Expires in {moment(data?.expiration_date).fromNow(true)}
               </Text>
             ) : (
               <></>
