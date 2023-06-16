@@ -5,9 +5,6 @@ export default function FridgeState() {
   const { data } = useFridge();
   return (
     <Flex padding={"5px 20px"} direction={"column"}>
-      {/* <Text fontSize={"xl"} fontWeight={500}>
-        Fridge State
-      </Text> */}
       <Flex borderRadius={"20px"} bg="#EBF8FF">
         <Flex width={"50%"} alignItems={"center"} justify={"center"}>
           <Image src="fridge.png" height={"165px"}></Image>
@@ -30,6 +27,7 @@ export default function FridgeState() {
           <Text
             fontSize={"md"}
             fontWeight={500}
+            marginTop="16px"
             color={"white"}
             bg="blue.500"
             width={"fit-content"}
