@@ -1,4 +1,5 @@
 import {
+  Badge,
   Button,
   Flex,
   Image,
@@ -76,7 +77,12 @@ export default function FoodCard({ data }: any) {
         direction={"column"}
       >
         <Text fontWeight={700} fontSize={"lg"}>
-          {data?.name}
+          {data?.name}{" "}
+          {data?.status == "stolen" && (
+            <Badge p="0px 5px" borderRadius="16px" bg="red.500">
+              <Text color="white">Stolen</Text>
+            </Badge>
+          )}
         </Text>
         <Text>
           In Fridge Since:
